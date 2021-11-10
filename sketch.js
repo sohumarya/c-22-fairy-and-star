@@ -32,7 +32,7 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:false});
+	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:true});
 	World.add(world, starBody);
 	
 	Engine.run(engine);
@@ -45,6 +45,12 @@ function draw() {
 
   drawSprites();
 pos1=fairy.position
+if(starBody.position.y > 470 && star.y >470){
+	Matter.Body.setStatic(starBody,true)
+console.log(star.x)	
+
+}
+
 
 
 }
@@ -56,15 +62,19 @@ function keyPressed() {
 
 	if(keyCode === LEFT_ARROW){
 		pos1.x -=10
-		Matter.Body.translate(fairy,{x:-10,y:0})
+		//Matter.Body.translate(fairy,{x:-10,y:0})
 	  }
 	  if(keyCode === RIGHT_ARROW){
 		pos1.x +=10
-		Matter.Body.translate(fairy,{x:10,y:0})
+		//Matter.Body.translate(fairy,{x:10,y:0})
 	  }
 	 
 	  
-	  if(keyCode === DOWN_ARROW){
+	  if(fairy.x> 550){
 		Matter.Body.setStatic(starBody,false)
+		Matter.Body.setPosition(starBody,{x:fairy.x+150,y:fairy.y-50})
+		fairyVoice.play()
+		
 	  }
+	  
 	}
